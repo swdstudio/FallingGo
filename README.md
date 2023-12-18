@@ -5,7 +5,9 @@ FallingGo 是由SWD Studio以GNU GPL协议于GMT+8 2023-12-15 13:49:18发布的�
 
 本程序开发环境：
 系统：Windows 10 2016 LTSB
+
 Python解释器环境：Python IDLE 3.13.0a02 for Windows（x64）
+
 建议使用CPython 3.8.10及以上环境运行
 
 更新日志：
@@ -18,6 +20,7 @@ Python解释器环境：Python IDLE 3.13.0a02 for Windows（x64）
 
 游戏规则：
 游戏开始后双方在棋盘上交替落子，棋子会自动下落直到碰到棋盘底部或棋子
+
 先连成4子者获胜
 
 文件介绍：
