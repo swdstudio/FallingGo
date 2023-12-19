@@ -1,5 +1,5 @@
 # FallingGo 
-## 由[SWD Studio](https://github.com/swdstudio "访问我们的github")以GNU GPL协议于GMT+8 2023-12-15 13:49:18发布的软件
+## 由[SWD Studio](https://github.com/swdstudio "访问我们的github")以GNU GPL协议于UTC+8 2023-12-15 13:49:18发布的软件
 
 该程序版本号为2.2.8 内部版本号SWDFG-I231216
 
