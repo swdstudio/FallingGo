@@ -55,3 +55,5 @@ fglog.log是主程序的日志文件
 欢迎访问[SWD Studio Github](https://github.com/swdstudio "访问我们的github")和[SWD Studio Website](http://swd-go.ysepan.com "访问我们的国内下载站")
 
 **Pull requests** and **raise issue** is welcomed,**帮助我们一起把这个开源软件做得更好**
+
+##### 附注：所有时间未经说明均为CST（中国标准时间）
