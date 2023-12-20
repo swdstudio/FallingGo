@@ -15,7 +15,7 @@ Python IDLE 3.13.0a02 for Windows（x64）
 建议使用CPython 3.8.10及以上环境运行
 
 ## 更新日志：
-### 2023.12.16 [v2.2.8](https://github.com/swdstudio/FallingGo/releases/tag/v2.2.8 "前往")
+### 2023.12.16 v2.2.8
 
 增加了稳定性
 
@@ -41,8 +41,8 @@ Python IDLE 3.13.0a02 for Windows（x64）
 ## 文件介绍：
 运行时请启动FallingGo.py文件
 
-swdz.py是SWD Coding Group开发的Python库，以GNU-GPL协议发布，本程序使用的内部版本号SWDZ-I231201
-swdlc.py,onkey.py是SWD Coding Group开发的Python库，以GNU-GPL协议发布，本程序使用的内部版本号SWDLC-I231202-T01
+swdz.py,onkey.py是SWD Coding Group开发的Python库，以GNU-GPL v3协议发布，本程序使用的内部版本号SWDZ-I231201
+swdlc.py是SWD Coding Group开发的Python库，以GNU-GPL v3协议发布，本程序使用的内部版本号SWDLC-I231202-T01
 cert.pem,key.pem是swdlc的自签名证书
 FallingGo-ols.py是FallingGo的服务器端
 fg.his是历史记录
@@ -54,4 +54,4 @@ fglog.log是主程序的日志文件
 
 欢迎访问[SWD Studio Github](https://github.com/swdstudio "访问我们的github")和[SWD Studio Website](http://swd-go.ysepan.com "访问我们的国内下载站")
 
-**Pull requests** and **raise issue** is welcomed,**让我们一起把这个开源软件做得更好**
+**Pull requests** and **raise issue** is welcomed,**帮助我们一起把这个开源软件做得更好**
