@@ -15,7 +15,7 @@ Python IDLE 3.13.0a02 for Windows（x64）
 建议使用CPython 3.8.10及以上环境运行
 
 ## 更新日志：
-### 2023.12.16 v2.2.8
+### 2023.12.16 [v2.2.8](https://github.com/swdstudio/FallingGo/releases/tag/v2.2.8 "前往")
 
 增加了稳定性
 
