@@ -1,4 +1,4 @@
-#    Copyright (C) 2020-2023  SWD Studio
+#    Copyright (C) 2020-2024  SWD Studio
 
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -13,9 +13,8 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #    You can contact us on swd-go.ysepan.com
-#20231211
+#20240401
 import turtle as t
-import onkey
 import logging
 d=20
 n=32
@@ -23,20 +22,46 @@ free=True
 blist=[]#functions
 bmap={}
 Debug=False
-def NULL():
+iswinshow=False
+def NULL(*args):
     pass
+
 def home():
-    try:
-        t.home()
-    except t.Terminator:
-        t.home()
+    #'''
+    global iswinshow
+    if iswinshow:#'''
+    #if True:
+        try:
+            t.home()
+        except Exception:
+            logging.info('An Error occured at swdz line 34')
+            t.home()
+    #'''
+    else:
+        #t.bgcolor('white')
+        try:
+            gettkobj().deiconify()
+        except Exception:
+            #logging.info('An Error occured at swdz line 34')
+            gettkobj().deiconify()
+        iswinshow=True#'''
+
+
 
 def bye():
+    #'''
+    global iswinshow
+    if iswinshow:
+        t.resetscreen()
+        gettkobj().withdraw()
+        iswinshow=False
+    else:
+        raise RuntimeError('Try to withdraw a withdrawed turtle window')#'''
     t.bye()
 
 def NULL1():
     return "SHIT!"
-def setwtitle(s='swdz(20231212)'):
+def setwtitle(s='swdz(20240331)'):
     '''
 用于修改窗口标题
 setwtitle(s)
@@ -53,18 +78,37 @@ def setbtndic():
     blist=[NULL1]
     return 0
 
-def setonkey(keyfun):#@
-    "设置键盘单击事件"
+keyfun=NULL
+
+def gettkobj():
+    "获取turtle窗口的Tk对象"
+    return t.getcanvas().winfo_toplevel()
+
+def _zkeypress(event):
+    keyfun(event)
+    logging.debug('z64')
+    return
+
+
+
+def setonkey(fun):#@
+    '''设置键盘单击事件
+注意它与之前版本不兼容，应用Event.keysym代替原来的键值'''
+    global keyfun
+    keyfun=fun
+    '''
     onkey.resonkey=keyfun
     onkey.upload()
+    '''
     return keyfun
+
 def setonclosing(delfun): #@
     '用于绑定窗口关闭时间触发的函数'
-    root = t.getcanvas().winfo_toplevel()
-    root.protocol("WM_DELETE_WINDOW",delfun)
+    gettkobj().protocol("WM_DELETE_WINDOW",delfun)
     return delfun
+
 def listen():
-    '监听键盘（不阻塞线程）'
+    '监听键盘（不阻塞线程）,加入mainloop'
     t.listen()
 
 def init(sd=20,sn=32,psize=1,show_line_no=True,background='white'):
@@ -77,11 +121,12 @@ sn:每边方格个数
 psize:方格边线宽度
 show_line_no:是否绘制行号和列号
 '''
-    global d,n,bmap,backgd,outrangeclick,orcfunc,nosqflag
+    global d,n,bmap,backgd,outrangeclick,orcfunc,nosqflag,iswinshow
+    iswinshow=True
     outrangeclick=NULL
     backgd=background
     d=sd
-    
+    gettkobj().bind(sequence='<Key>',func=_zkeypress)
     t.hideturtle()
     t.pensize(1)
     t.speed(0)
@@ -89,8 +134,6 @@ show_line_no:是否绘制行号和列号
     t.bgcolor(backgd)
     if type(sn)==type([]):
         nosqflag=True
-        if Debug:
-            print('flagnosq')
         n=sn[0]
         sn[1]+=1
     else:
@@ -98,7 +141,7 @@ show_line_no:是否绘制行号和列号
         n=sn
     setbtndic()
     t.pensize(psize)
-    drawmap(show_line_no)
+    _drawmap(show_line_no)
     if nosqflag:
         if Debug:
             print(int(g2t(0)),int(g2t(sn[1])),int(g2t(sn[0]+1)),int(g2t(sn[0]+1)),'green')
@@ -108,9 +151,9 @@ show_line_no:是否绘制行号和列号
         if show_line_no and c<=n:
             draw(c+0.4,liney,str(c),color='black',charsize=d//2)
     update()
-        
-    
-def drawmap(show_line_no=True):
+
+
+def _drawmap(show_line_no=True):
     '''
 绘图函数，内部调用，不应由用户调用
 drawmap(show_line_no=Ture)
@@ -164,6 +207,7 @@ color:颜色
     t.write('▇'*50,font=('Arial',d//2+1,'normal'))
     t.color(color)
     t.write(s,font=('Arial',d//2,'normal'))
+
 def click_not_free(tx,ty):
     gx,gy=map(t2g,(tx,ty))
     bv=bmap[(gx,gy)]
@@ -174,6 +218,13 @@ def click_not_free(tx,ty):
             cf(tx,ty)
 def update():
     t.update()
+
+def color(thecolor):
+    t.color(thecolor)
+
+def clear():
+    t.clear()
+
 def left_click(f):
     '''
 left_click装饰器函数，用法如下:
@@ -186,7 +237,7 @@ def click(x,y):
     if not free:
         t.onscreenclick(click_not_free,1)
         cf=f
-        return
+        return f
     t.onscreenclick(f,1)
     return f
 def mainloop():
@@ -194,7 +245,6 @@ def mainloop():
 主循环函数
 '''
     t.mainloop()
-
 def block_fill(gx,gy,color):
     '''
 方块填充函数
@@ -236,9 +286,9 @@ def out_range_click(outrf):   #@
     if nosqflag:
         #orcfunc=create_btn(g2t(0),g2t(sn[1]),g2t(sn[0]+1),g2t(sn[0]+1),backgd,outrangeclick)
         remove_btn(orcfunc)
-    
+
     return outrf
-def demo():
+def _demo():
     '''
 演示函数
 '''
@@ -257,9 +307,16 @@ def demo():
         draw(gx,gy,'A','white')
     @setonkey
     def res(onchr):
-        print(onchr)
+        print(onchr.keysym)
+        print(type(onchr.keysym))
+        print(onchr.char)
+        print(type(onchr.char))
+        #print(dir(onchr))
+        #print(onchr=='s')
         return
     listen()
+    bye()
+    home()
     mainloop()
 if __name__=='__main__':
-    demo()
+    _demo()
